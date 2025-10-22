@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Day Cordillera de la Viuda - Terranova Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #FF8C42 0%, #FFA726 100%);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            background: white;
+            color: #FF8C42;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn-register {
+            background: white;
+            color: #FF8C42;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .btn-register:hover {
+            transform: scale(1.05);
+        }
+
+        /* Back Link */
+        .back-link {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .back-link a {
+            color: #1976d2;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Container */
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .detail-header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detail-title {
+            flex: 1;
+        }
+
+        .detail-title h1 {
+            font-size: 32px;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .detail-price {
+            text-align: right;
+        }
+
+        .price-amount {
+            font-size: 36px;
+            color: #FF8C42;
+            font-weight: bold;
+        }
+
+        .price-label {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .btn-action {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-edit {
+            background: #f5f5f5;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #FF8C42 0%, #FFA726 100%);
+            color: white;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #FFA726;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .thumbnail {
+            height: 120px;
+            background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        /* Info Section */
+        .info-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+
+        .info-section h2 {
+            color: #1976d2;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .info-section li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        /* Important Box */
+        .important-box {
+            background: #FFF3E0;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #FF8C42;
+            margin-top: 20px;
+        }
+
+        .important-box h3 {
+            color: #E65100;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .important-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .important-box li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .important-box li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #FF8C42;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .sidebar-card h3 {
+            color: #1976d2;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .price-detail {
+            background: #E3F2FD;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .price-detail .amount {
+            font-size: 42px;
+            color: #FF8C42;
+            font-weight: bold;
+            display: block;
+        }
+
+        .price-detail .label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+            color: white;
+        }
+
+        .btn-verify {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-contact {
+            background: #FF8C42;
+            color: white;
+        }
+
+        .btn-full:hover {
+            transform: translateY(-2px);
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #FFA726;
+            font-size: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #FFA726;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #FFA726;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .detail-price {
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .thumbnail-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <div class="logo-text">TERRANOVA<br>EXPERIENCE</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
+                <li><a href="fulldays.html">Nuestros Servicios</a></li>
+                <li><a href="fulldays.html">Paquetes y Full Days</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <a href="login.html" class="btn-register">Regístrate</a>
+        </nav>
+    </header>
+
+    <!-- Back Link -->
+    <div class="back-link">
+        <a href="fulldays.html">← Volver a Paquetes y Full Days</a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="detail-container">
+        <!-- Header Section -->
+        <div class="detail-header">
+            <div class="detail-title">
+                <h1>Full day Cordillera de la Viuda</h1>
+            </div>
+            <div class="detail-price">
+                <div class="price-amount">S/99.00</div>
+                <div class="price-label">por persona</div>
+                <div>
+                    <button class="btn-action btn-edit">EDITAR</button>
+                    <button class="btn-action btn-buy">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div>
+                <!-- Gallery Section -->
+                <div class="gallery-section">
+                    <div class="main-image">
+                        <div class="image-badge">CORDILLERA</div>
+                        🏔️
+                    </div>
+                    <div class="thumbnail-grid">
+                        <div class="thumbnail">🏖️</div>
+                        <div class="thumbnail">🌄</div>
+                        <div class="thumbnail">🏞️</div>
+                        <div class="thumbnail">⛰️</div>
+                        <div class="thumbnail">🌅</div>
+                        <div class="thumbnail">🎒</div>
+                    </div>
+                </div>
+
+                <!-- Program Info -->
+                <div class="info-section">
+                    <h2>NUESTRO PROGRAMA INCLUYE</h2>
+                    <ul>
+                        <li>Transporte turístico de ida y vuelta desde Lima</li>
+                        <li>Visita a la laguna de Q7 colores</li>
+                        <li>Visita al mirador Cordillera de la Viuda</li>
+                        <li>Pago a la Islas Pachacamac</li>
+                        <li>Excursión de buceo de hasta 20 minutos</li>
+                        <li>Caja para almorzar fácil llevar</li>
+                        <li>Q1 botella de oxígeno medicinal</li>
+                        <li>Botiquín de primeros auxilios</li>
+                        <li>Almuerzo (incluido) en la visita</li>
+                        <li>Guía turistico profesional</li>
+                        <li>¿Quizá prueba confirmada?</li>
+                        <li>Visita de cerro Alcamari</li>
+                    </ul>
+                </div>
+
+                <!-- Important Box -->
+                <div class="important-box">
+                    <h3>IMPORTANTE</h3>
+                    <ul>
+                        <li>Solo llevar de efectivo máx 4,500 mejora , clima frío, no hay caminata larga</li>
+                        <li>Llevar ropa abrigadora y zapatos para caminar</li>
+                        <li>No es recomendable para menores de 3 años o mayores de 65 años por presión arterial</li>
+                        <li>Prohibida bebidas alcohólicas y fumar durante el día</li>
+                    </ul>
+                </div>
+
+                <!-- What to Bring -->
+                <div class="info-section">
+                    <h2>¿Qué llevar?</h2>
+                    <ul>
+                        <li>Almuerzo</li>
+                        <li>Entrada a Cordillera S/: 3.00</li>
+                        <li>Almuerzo al cerro Cordillera S/: 1.00</li>
+                        <li>Entrada a cerro local de ajenos: S/3.00</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <div class="sidebar">
+                <!-- Price Card -->
+                <div class="sidebar-card">
+                    <h3>Reserva Ahora</h3>
+                    <div class="price-detail">
+                        <span class="amount">S/99.00</span>
+                        <span class="label">por persona</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-full btn-book">VERIFICAR PRECIOS DE SALIDA</button>
+                        <button class="btn-full btn-verify">VERIFICAR DE SALIDA</button>
+                        <button class="btn-full btn-contact">VER TÉRMINOS Y CONDICIONES</button>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="sidebar-card">
+                    <h3>Información del Tour</h3>
+                    <ul class="info-list">
+                        <li>⏰ Duración: Full Day</li>
+                        <li>👥 Grupo: Mínimo 15 personas</li>
+                        <li>🚌 Transporte incluido</li>
+                        <li>🍽️ Almuerzo incluido</li>
+                        <li>📸 Guía fotográfico</li>
+                        <li>🏔️ Altitud: 4,500 msnm</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Card -->
+                <div class="sidebar-card">
+                    <h3>¿Dudas?</h3>
+                    <p style="margin-bottom: 15px; font-size: 14px; line-height: 1.6;">También puedes contactarte con nosotros de la forma inmediata:</p>
+                    <ul class="info-list">
+                        <li>📞 +51 926 568 799</li>
+                        <li>📧 terranova58@gmail.com</li>
+                        <li>💬 WhatsApp disponible</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CONTÁCTANOS</h3>
+                <ul>
+                    <li>📞 +51 926 568 799</li>
+                    <li>📧 terranova58@gmail.com</li>
+                    <li>📍 Calle 37A No. 52 - 05</li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">▶</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>SERVICIOS</h3>
+                <ul>
+                    <li><a href="#">Hoteles</a></li>
+                    <li><a href="#">Reservaciones</a></li>
+                    <li><a href="#">Tours</a></li>
+                    <li><a href="#">Planificación</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>NOSOTROS</h3>
+                <ul>
+                    <li><a href="#">Mesa de servicio</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>SÍGUENOS</h3>
+                <ul>
+                    <li>🌐 LinkedIn</li>
+                    <li>🐦 Twitter</li>
+                    <li>📘 Facebook</li>
+                    <li>📷 Instagram</li>
+                    <li>▶️ Youtube</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Terranova Experience | Políticas de privacidad</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cambiar imagen principal al hacer clic en thumbnail
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.querySelector('.main-image');
+
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                mainImage.innerHTML = '<div class="image-badge">CORDILLERA</div>' + this.innerHTML;
+            });
+        });
+
+        // Botones de acción
+        document.querySelector('.btn-book').addEventListener('click', function() {
+            alert('Verificando precios de salida disponibles...');
+        });
+
+        document.querySelector('.btn-verify').addEventListener('click', function() {
+            alert('Verificando fechas de salida disponibles...');
+        });
+
+        document.querySelector('.btn-contact').addEventListener('click', function() {
+            alert('Mostrando términos y condiciones del servicio...');
+        });
+    </script>
+</body>
+</html>

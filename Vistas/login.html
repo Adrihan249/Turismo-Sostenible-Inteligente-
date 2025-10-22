@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Registro - Terranova Experience</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 0.8)),
+        url('https://images.unsplash.com/photo-1549893075-7a6f1e3e4cf4?auto=format&fit=crop&w=1500&q=80');
+      background-size: cover;
+      background-position: center;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      width: 380px;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .container h2 { text-align: center; color: #003366; margin-bottom: 25px; }
+
+    .input-group { margin-bottom: 20px; }
+    .input-group label { display: block; font-size: 14px; margin-bottom: 5px; color: #444; }
+    .input-group input {
+      width: 100%; padding: 10px; border: 1px solid #ccc;
+      border-radius: 8px; font-size: 14px;
+    }
+
+    .btn {
+      width: 100%; background: #ff6b35; color: white; border: none;
+      padding: 12px; border-radius: 8px; font-size: 16px;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .btn:hover { background: #f7931e; }
+
+    .toggle-link {
+      display: block; text-align: center; margin-top: 15px;
+      font-size: 14px; color: #0066cc; cursor: pointer; text-decoration: none;
+    }
+    .toggle-link:hover { text-decoration: underline; }
+
+    .google-btn {
+      margin-top: 15px; background: white; border: 1px solid #ccc;
+      color: #333; display: flex; align-items: center;
+      justify-content: center; gap: 10px; padding: 10px;
+      border-radius: 8px; cursor: pointer; transition: background 0.3s;
+    }
+    .google-btn:hover { background: #f8f8f8; }
+
+    .form { transition: all 0.5s ease; }
+    .register-form { display: none; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 420px) {
+      .container { width: 90%; padding: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- LOGIN -->
+    <form class="form login-form" id="loginForm">
+      <h2>Iniciar Sesión</h2>
+      <div class="input-group">
+        <label for="emailLogin">Correo Electrónico</label>
+        <input type="email" id="emailLogin" placeholder="usuario@gmail.com" required />
+      </div>
+      <div class="input-group">
+        <label for="passwordLogin">Contraseña</label>
+        <input type="password" id="passwordLogin" placeholder="********" required />
+      </div>
+      <button type="submit" class="btn">Ingresar</button>
+      <a class="toggle-link" id="goRegister">¿No tienes cuenta? Regístrate aquí</a>
+      <div class="google-btn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" />
+        Continuar con Google
+      </div>
+    </form>
+
+    <!-- REGISTRO -->
+    <form class="form register-form" id="registerForm">
+      <h2>Crear Cuenta</h2>
+      <div class="input-group">
+        <label for="nameRegister">Nombre Completo</label>
+        <input type="text" id="nameRegister" placeholder="Tu nombre completo" required />
+      </div>
+      <div class="input-group">
+        <label for="emailRegister">Correo Electrónico</label>
+        <input type="email" id="emailRegister" placeholder="usuario@gmail.com" required />
+      </div>
+      <div class="input-group">
+        <label for="passwordRegister">Contraseña</label>
+        <input type="password" id="passwordRegister" placeholder="********" required />
+      </div>
+      <div class="input-group">
+        <label for="confirmPassword">Confirmar Contraseña</label>
+        <input type="password" id="confirmPassword" placeholder="********" required />
+      </div>
+      <button type="submit" class="btn">Registrarme</button>
+      <a class="toggle-link" id="goLogin">¿Ya tienes cuenta? Inicia sesión</a>
+    </form>
+  </div>
+
+  <script>
+    // Alternar formularios
+    const loginForm = document.querySelector('.login-form');
+    const registerForm = document.querySelector('.register-form');
+    document.getElementById('goRegister').onclick = () => {
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+    };
+    document.getElementById('goLogin').onclick = () => {
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+    };
+
+    // Registro de usuarios (localStorage)
+    document.getElementById('registerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('nameRegister').value.trim();
+      const email = document.getElementById('emailRegister').value.trim();
+      const pass = document.getElementById('passwordRegister').value;
+      const confirm = document.getElementById('confirmPassword').value;
+
+      if (pass !== confirm) {
+        alert('❌ Las contraseñas no coinciden');
+        return;
+      }
+
+      // obtener usuarios existentes
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.some(u => u.email === email)) {
+        alert('⚠️ Este correo ya está registrado');
+        return;
+      }
+
+      users.push({ name, email, password: pass });
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('✅ Registro exitoso. Ahora puedes iniciar sesión.');
+
+      registerForm.reset();
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+    });
+
+    // Login
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('emailLogin').value.trim();
+      const pass = document.getElementById('passwordLogin').value;
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === email && u.password === pass);
+
+      if (!user) {
+        alert('❌ Correo o contraseña incorrectos');
+        return;
+      }
+
+      localStorage.setItem('loggedUser', JSON.stringify(user));
+      alert(`👋 Bienvenido, ${user.name}!`);
+      window.location.href = 'home.html';
+    });
+  </script>
+</body>
+</html>

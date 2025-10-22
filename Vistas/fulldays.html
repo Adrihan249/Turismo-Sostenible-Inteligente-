@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paquetes y Full Days - Terranova Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #FF8C42 0%, #FFA726 100%);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            background: white;
+            color: #FF8C42;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn-register {
+            background: white;
+            color: #FF8C42;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .btn-register:hover {
+            transform: scale(1.05);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Page Title */
+        .page-title {
+            font-size: 32px;
+            color: #1976d2;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-item label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .filter-item select,
+        .filter-item input {
+            padding: 8px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .btn-search {
+            background: linear-gradient(135deg, #FF8C42 0%, #FFA726 100%);
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Packages Grid */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .package-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #FFA726;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .package-content {
+            padding: 20px;
+        }
+
+        .package-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .package-price {
+            font-size: 24px;
+            color: #FF8C42;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .package-price-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .package-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit {
+            flex: 1;
+            padding: 10px;
+            background: #f5f5f5;
+            color: #666;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-buy {
+            flex: 1;
+            padding: 10px;
+            background: linear-gradient(135deg, #FF8C42 0%, #FFA726 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #FFA726;
+            font-size: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .footer-section a:hover {
+            color: #FFA726;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #FFA726;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-item select,
+            .filter-item input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <div class="logo-text">TERRANOVA<br>EXPERIENCE</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
+                <li><a href="fulldays.html">Nuestros Servicios</a></li>
+                <li><a href="fulldays.html">Paquetes y Full Days</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <a href="login.html" class="btn-register">Regístrate</a>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <h1 class="page-title">Paquetes y Full Days</h1>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-item">
+                <label>📍 ¿A dónde quieres ir?</label>
+                <select id="destination">
+                    <option value="">Selecciona un destino</option>
+                    <option value="lima">Lima</option>
+                    <option value="cusco">Cusco</option>
+                    <option value="arequipa">Arequipa</option>
+                    <option value="paracas">Paracas</option>
+                    <option value="huaral">Huaral</option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label>📅 Selecciona tu fecha de salida</label>
+                <input type="date" id="dateFrom">
+            </div>
+
+            <div class="filter-item">
+                <label>📅 Desde</label>
+                <input type="date" id="dateTo">
+            </div>
+
+            <div class="filter-item">
+                <label>📅 Hasta</label>
+                <input type="date" id="dateUntil">
+            </div>
+
+            <button class="btn-search">🔍 BUSCAR</button>
+        </div>
+
+        <!-- Packages Grid -->
+        <div class="packages-grid">
+            <!-- Package 1 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">OFERTA ESPECIAL</div>
+                    🏛️
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Chancay - Huaral</h3>
+                    <div class="package-price">S/ 99.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 2 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">POPULAR</div>
+                    🚣
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Aventura</h3>
+                    <div class="package-price">S/ 89.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 3 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">NUEVO</div>
+                    🏖️
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Cordillera de la Viuda</h3>
+                    <div class="package-price">S/ 99.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 4 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">DESTACADO</div>
+                    🏜️
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Paracas</h3>
+                    <div class="package-price">S/ 35.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 5 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">RECOMENDADO</div>
+                    ⛰️
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day San Mateo del Otao</h3>
+                    <div class="package-price">S/ 89.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 6 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">EXCLUSIVO</div>
+                    🏛️
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Arequipa y Camaná</h3>
+                    <div class="package-price">S/ 79.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 7 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">TOP VENTAS</div>
+                    🌄
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Canta y Obrajillo</h3>
+                    <div class="package-price">S/ 95.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 8 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">AVENTURA</div>
+                    🎿
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Marcahuasi</h3>
+                    <div class="package-price">S/ 110.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 9 -->
+            <div class="package-card">
+                <div class="package-image">
+                    <div class="package-badge">FAMILIA</div>
+                    🏞️
+                </div>
+                <div class="package-content">
+                    <h3 class="package-title">Full Day Lunahuaná</h3>
+                    <div class="package-price">S/ 85.00</div>
+                    <div class="package-price-label">por persona</div>
+                    <div class="package-buttons">
+                        <button class="btn-edit">EDITAR</button>
+                        <button class="btn-buy" onclick="location.href='detalle-fullday.html'">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CONTÁCTANOS</h3>
+                <ul>
+                    <li>📞 +51 926 568 799</li>
+                    <li>📧 terranova58@gmail.com</li>
+                    <li>📍 Calle 37A No. 52 - 05</li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">▶</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>SERVICIOS</h3>
+                <ul>
+                    <li><a href="#">Hoteles</a></li>
+                    <li><a href="#">Reservaciones</a></li>
+                    <li><a href="#">Tours</a></li>
+                    <li><a href="#">Planificación</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>NOSOTROS</h3>
+                <ul>
+                    <li><a href="#">Mesa de servicio</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>SÍGUENOS</h3>
+                <ul>
+                    <li>🌐 LinkedIn</li>
+                    <li>🐦 Twitter</li>
+                    <li>📘 Facebook</li>
+                    <li>📷 Instagram</li>
+                    <li>▶️ Youtube</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Terranova Experience | Políticas de privacidad</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animación al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.package-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Búsqueda
+        document.querySelector('.btn-search').addEventListener('click', function() {
+            alert('Función de búsqueda activada. Aquí se filtrarían los paquetes según los criterios seleccionados.');
+        });
+    </script>
+</body>
+</html>
