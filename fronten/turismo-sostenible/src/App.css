@@ -1,0 +1,25 @@
+#root {
+  width: 100%;
+  max-width: 100%;  /* Cambiado de 1280px a 100% */
+  margin: 0;
+  padding: 0;  /* Removido el padding */
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  /* Removido display: flex y place-items: center */
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+}
