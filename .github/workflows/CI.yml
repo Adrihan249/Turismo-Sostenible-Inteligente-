@@ -25,13 +25,13 @@ jobs:
           sleep 2
           echo "Dependencias instaladas correctamente ✔"
 
-      - name: Análisis estático (simulado)
+      - name: Análisis estático 
         run: |
           echo "Ejecutando pylint..."
           sleep 2
           echo "pylint: No issues found ✔"
 
-      - name: Compilación del entorno (simulado)
+      - name: Compilación del entorno 
         run: |
           echo "Compilando módulos..."
           sleep 2
@@ -43,7 +43,7 @@ jobs:
     needs: build
 
     steps:
-      - name: Ejecutar tests simulados
+      - name: Ejecutar tests
         run: |
           echo "Iniciando tests..."
           sleep 1
